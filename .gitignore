@@ -5,9 +5,9 @@ referencias/
 diagnostico-ponte.json
 deteccao/*.log
 # Documentos internos da pasta de impressão 3D do autor (o README.md é o público)
-LEIA-ME.md
-HISTORICO.md
-AJUSTES.md
+/LEIA-ME.md
+/HISTORICO.md
+/AJUSTES.md
 # Testes usam a pasta de dados real do autor
 testes/
 # Atalhos da instalação do autor (o .exe não precisa)
