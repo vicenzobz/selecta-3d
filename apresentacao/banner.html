@@ -1,0 +1,75 @@
+<!doctype html>
+<!-- Banner do README (apresentacao/banner.png), com as fontes e as cores do próprio programa (ui/estilo.css).
+     Gerado por apresentacao/gerar_capturas.py; abrir direto no navegador também funciona. -->
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<style>
+  @font-face { font-family: "Bowlby One"; src: url("../ui/vendor/fontes/bowlby-one-latin-400-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Archivo"; font-weight: 100 900; src: url("../ui/vendor/fontes/archivo-latin-wght-normal.woff2") format("woff2"); }
+  @font-face { font-family: "Archivo Narrow"; font-weight: 700; src: url("../ui/vendor/fontes/archivo-narrow-latin-700-normal.woff2") format("woff2"); }
+  @font-face { font-family: "JetBrains Mono"; font-weight: 100 800; src: url("../ui/vendor/fontes/jetbrains-mono-latin-wght-normal.woff2") format("woff2"); }
+  * { box-sizing: border-box; margin: 0; }
+  body { width: 1280px; height: 440px; background: #15110c; overflow: hidden; font-family: "Archivo", sans-serif; color: #e0d5b9; }
+  .palco { position: relative; width: 1280px; height: 440px;
+    background: radial-gradient(1100px 500px at 78% 40%, #292117 0%, #1e1811 45%, #15110c 100%); }
+  /* lombada tricolor em pé, como capa de vinil */
+  .lombada { position: absolute; left: 0; top: 0; bottom: 0; width: 18px;
+    background: linear-gradient(90deg, #cf2e1f 0 6px, #f0b41c 6px 12px, #4d7c2a 12px 18px); }
+  .esq { position: absolute; left: 86px; top: 50px; width: 640px; }
+  .marca { display: flex; align-items: center; gap: 22px; }
+  .marca svg { width: 104px; height: 104px; }
+  h1 { font: 400 78px/0.92 "Bowlby One", sans-serif; color: #f2e6c9; letter-spacing: .5px; }
+  h1 span { color: #f0b41c; }
+  .faixa { display: flex; width: 180px; height: 8px; margin: 26px 0 22px; }
+  .faixa i { flex: 1; } .faixa i:nth-child(1) { background: #cf2e1f; } .faixa i:nth-child(2) { background: #f0b41c; } .faixa i:nth-child(3) { background: #4d7c2a; }
+  p.sub { font-size: 25px; line-height: 1.35; color: #e0d5b9; max-width: 600px; }
+  p.sub b { color: #f2e6c9; font-weight: 700; }
+  .selos { display: flex; gap: 10px; margin-top: 26px; }
+  .selo { font: 700 13px/1 "Archivo Narrow", sans-serif; letter-spacing: 1.6px; text-transform: uppercase;
+    border: 2px solid #f0b41c; color: #f0b41c; padding: 8px 11px; }
+  .selo.musgo { border-color: #8dba63; color: #8dba63; }
+  .selo.papel { border-color: rgba(242,230,201,.5); color: #f2e6c9; }
+  /* etiqueta de disco: a "peça da vez" em papel creme */
+  .etiqueta { position: absolute; right: 70px; top: 62px; width: 430px; height: 316px; background: #f2e6c9; color: #1a140c;
+    padding: 26px 30px; box-shadow: 0 24px 60px rgba(0,0,0,.55); transform: rotate(2.2deg); }
+  .etiqueta small { font: 700 12px/1 "Archivo Narrow", sans-serif; letter-spacing: 2.4px; color: #5d4f33; text-transform: uppercase; }
+  .etiqueta h2 { font: 400 40px/1.02 "Bowlby One", sans-serif; margin: 12px 0 18px; }
+  .etiqueta h2 em { font-style: normal; color: #cf2e1f; }
+  .passos { display: flex; border: 2px solid #1a140c; width: max-content; }
+  .passos span { font: 700 12px/1 "Archivo Narrow", sans-serif; letter-spacing: 1.4px; text-transform: uppercase; padding: 8px 10px; border-right: 2px solid #1a140c; }
+  .passos span:last-child { border-right: 0; }
+  .passos .feito { background: #1a140c; color: #f2e6c9; }
+  .passos .agora { background: #4d7c2a; color: #fff; }
+  .linha { display: flex; align-items: center; gap: 10px; margin-top: 18px; font-size: 16px; }
+  .bola { width: 18px; height: 18px; border-radius: 50%; border: 2px solid #1a140c; }
+  .mono { font-family: "JetBrains Mono", monospace; font-size: 14px; color: #5d4f33; }
+  .vu { display: flex; gap: 4px; margin-top: 22px; align-items: flex-end; height: 44px; }
+  .vu i { width: 14px; background: #4d7c2a; } .vu i.o { background: #f0b41c; } .vu i.v { background: #cf2e1f; } .vu i.d { background: #e4d5b0; }
+  .lado { position: absolute; right: 24px; top: 26px; bottom: 26px; writing-mode: vertical-rl;
+    font: 700 12px/1 "Archivo Narrow", sans-serif; letter-spacing: 3px; color: #5d4f33; text-transform: uppercase; text-align: center; }
+</style>
+</head>
+<body>
+<div class="palco">
+  <div class="lombada"></div>
+  <div class="esq">
+    <div class="marca">
+      <svg viewBox="0 0 64 64"><g transform="translate(32 33) scale(1.02) translate(-32 -33)"><path d="M32 6 56 18 32 30 8 18Z" fill="#6f9e45"/><path d="M8 18v9l24 12V30Z" fill="#4d7c2a"/><path d="M56 18v9L32 39V30Z" fill="#3c6220"/><path d="M8 29v9l24 12V41Z" fill="#f0b41c"/><path d="M56 29v9L32 50V41Z" fill="#c8930f"/><path d="M8 40v8l24 12V52Z" fill="#cf2e1f"/><path d="M56 40v8L32 60V52Z" fill="#a22216"/></g></svg>
+      <h1>SELECTA<br><span>3D</span></h1>
+    </div>
+    <div class="faixa"><i></i><i></i><i></i></div>
+    <p class="sub">Organizador de impressão 3D: <b>fila, estoque de filamentos, projetos e compras</b> em arquivos de texto na sua pasta.</p>
+    <div class="selos"><span class="selo">Anycubic Kobra X</span><span class="selo musgo">Windows</span><span class="selo papel">Sem nuvem</span></div>
+  </div>
+  <div class="etiqueta">
+    <small>Peça da vez</small>
+    <h2><em>F02</em> Bandeja<br>80 × 50 (4)</h2>
+    <div class="passos"><span class="feito">✓ Modelo</span><span class="feito">✓ Fatiar</span><span class="agora">3 Imprimir</span><span>4 Registrar</span></div>
+    <div class="linha"><span class="bola" style="background:#1d1d1f"></span><span class="bola" style="background:#f2c12e"></span> preto, amarelo <span class="mono">118 g · 4h10</span></div>
+    <div class="vu"><i style="height:30%"></i><i style="height:48%"></i><i style="height:62%"></i><i style="height:74%"></i><i class="o" style="height:84%"></i><i class="o" style="height:92%"></i><i class="v" style="height:100%"></i><i class="d" style="height:100%"></i><i class="d" style="height:100%"></i><i class="d" style="height:100%"></i></div>
+    <div class="lado">F02 · 4h10 · trabalho</div>
+  </div>
+</div>
+</body>
+</html>

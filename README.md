@@ -1,8 +1,29 @@
+<p align="center"><img src="apresentacao/banner.png" alt="Selecta 3D: organizador de impressão 3D" width="100%"></p>
+
 # Selecta 3D
 
 Programa para Windows que organiza a impressão 3D de quem tem uma **Anycubic Kobra X**: fila de peças, estoque de filamentos, compras, projetos, referências de outros sites, estimativas e histórico de impressões. Tudo fica em arquivos de texto (`.md`) numa pasta sua; não há conta, nuvem nem banco de dados.
 
-> Feito para uso pessoal e compartilhado com amigos como está, sem garantia. A parte de imprimir pela rede (KX-Bridge) e a detecção de falhas **ainda não foram testadas com uma impressora de verdade**.
+> [!IMPORTANT]
+> **Projeto pessoal, compartilhado para testes e como referência para outros projetos.** Eu não dou suporte ao programa para outras pessoas: issues e pedidos podem ficar sem resposta, e não há garantia.
+>
+> Para adaptar o Selecta 3D à sua impressora e à sua rotina de impressão 3D, use um agente de IA como o **[Claude Code](https://claude.com/claude-code)** ou o **[Codex](https://openai.com/codex)**: aponte o agente para este repositório e para a sua pasta de impressão, e peça as mudanças que quiser. É assim que o programa é feito e mantido. Os dados são arquivos `.md` legíveis justamente para que você e o agente possam ler e editar as mesmas tabelas.
+
+> [!WARNING]
+> A parte de imprimir pela rede (KX-Bridge) e a detecção de falhas **ainda não foram testadas com uma impressora de verdade**.
+
+## Como é
+
+| | |
+|---|---|
+| ![Painel](apresentacao/tela_painel.png) | ![Fila](apresentacao/tela_fila.png) |
+| **Painel:** a peça da vez como etiqueta de disco, com os passos (modelo, fatiar, imprimir, registrar), as cores e os rolos a carregar. | **Fila:** agrupada pelos dias do plano, com miniatura, cores, gramas, tempo e custo estimados. |
+| ![Estoque](apresentacao/tela_estoque.png) | ![Projetos](apresentacao/tela_projetos.png) |
+| **Estoque:** rolos com tara e preço, e a previsão por cor (o que a fila pede × o que sobra). | **Projetos:** peças, arquivos 3D, materiais e compras de cada projeto, com o prazo. |
+
+![Arquivos](apresentacao/tela_arquivos.png)
+
+**Arquivos:** os modelos da pasta com prévia 3D, versão, peça da fila e licença. *(Capturas feitas com dados de demonstração por `apresentacao/gerar_capturas.py`.)*
 
 ## Instalar
 
@@ -45,7 +66,9 @@ Fila, estoque (com previsão de filamento por cor e pesagem na balança), compra
 
 ## Para quem quer rodar pelo código
 
-Python 3.11 e `python -m pip install pywebview pystray pillow`; depois `python selecta3d.pyw` (`--raiz PASTA` escolhe a pasta de dados). Para gerar o zip: `empacotar\empacotar.ps1`. Cada etiqueta `v*` enviada ao GitHub gera o zip em Releases pelo GitHub Actions.
+Python 3.11 e `python -m pip install pywebview pystray pillow`; depois `python selecta3d.pyw` (`--raiz PASTA` escolhe a pasta de dados). Para gerar o zip: `empacotar\empacotar.ps1`. Cada etiqueta `v*` enviada ao GitHub gera o zip em Releases pelo GitHub Actions. As imagens deste README saem de `apresentacao/gerar_capturas.py` (Playwright).
+
+O fatiador que conversa com o Selecta 3D é o [Reggae Slicer](https://github.com/vicenzobz/reggae-slicer), um fork do OrcaSlicer (também sem suporte); o OrcaSlicer oficial funciona.
 
 ## Licença
 
