@@ -57,6 +57,9 @@ def _norm(t):
 PROGRAMAS_ABRIR = ("anycubic", "reggae")  # botões "Abrir no …" do Painel e da Fila
 
 
+EXECUTAVEIS = ("reggae-slicer.exe", "orca-slicer.exe")  # o nome novo primeiro
+
+
 class Fatiador:
     def __init__(self, repo, pasta, comando=None, config=None):
         self.repo = repo
@@ -75,17 +78,22 @@ class Fatiador:
     def executavel(self):
         if self._comando:
             return self._comando
-        # o Reggae Slicer (fork) tem prioridade; o Orca oficial fica como reserva
+        # o Reggae Slicer (fork) tem prioridade; o Orca oficial fica como reserva. Desde a 4.20 o executável do
+        # Reggae Slicer é reggae-slicer.exe (antes, orca-slicer.exe, como o do Orca)
         for sub in ("reggae-slicer", "orca-oficial"):
-            p = os.path.join(self.pasta, sub, "orca-slicer.exe")
-            if os.path.isfile(p):
-                return [p]
-        # zip extraído com o nome original (ex.: OrcaSlicer_Windows_V2.5.2_x64_portable)
+            for exe in EXECUTAVEIS:
+                p = os.path.join(self.pasta, sub, exe)
+                if os.path.isfile(p):
+                    return [p]
+        # zip extraído com o nome original (ex.: ReggaeSlicer_4.20_Windows_x64_portable, OrcaSlicer_Windows_V2.5.2_x64_portable)
         try:
             for nome in sorted(os.listdir(self.pasta)):
-                p = os.path.join(self.pasta, nome, "orca-slicer.exe")
-                if nome.lower().startswith("orcaslicer") and os.path.isfile(p):
-                    return [p]
+                if not nome.lower().startswith(("reggaeslicer", "orcaslicer")):
+                    continue
+                for exe in EXECUTAVEIS:
+                    p = os.path.join(self.pasta, nome, exe)
+                    if os.path.isfile(p):
+                        return [p]
         except OSError:
             pass
         return None
