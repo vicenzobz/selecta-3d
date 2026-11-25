@@ -47,6 +47,10 @@ Fila, estoque (com previsão de filamento por cor e pesagem na balança), compra
 
 Python 3.11 e `python -m pip install pywebview pystray pillow`; depois `python selecta3d.pyw` (`--raiz PASTA` escolhe a pasta de dados). Para gerar o zip: `empacotar\empacotar.ps1`. Cada etiqueta `v*` enviada ao GitHub gera o zip em Releases pelo GitHub Actions.
 
+## Licença
+
+MIT (arquivo `LICENSE`).
+
 ## Licenças de terceiros
 
 three.js (MIT), QR Code Generator de Kazuhiko Arase (MIT) e fontes Archivo, Archivo Narrow, Barlow Condensed, Bowlby One, Inter e JetBrains Mono (SIL Open Font License), em `ui/vendor/`.
