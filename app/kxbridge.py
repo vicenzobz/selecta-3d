@@ -53,6 +53,8 @@ LEITURAS_FIM = 3  # leituras seguidas em "standby" para aceitar que parou (compl
 FIM_CERTO = ("complete", "error")
 # diagnóstico (princ-v02): só leitura; o que parecer credencial ou identificação do aparelho não vai para o arquivo
 ARQUIVO_DIAGNOSTICO = f"{PASTA_ORGANIZADOR}/diagnostico-ponte.json"
+ARQUIVO_F0 = "PROJETOS/KOBRA-X/teste-f0/f0-teste.stl"  # primeira peça do autor (roteiro do primeiro dia)
+ARQUIVO_ROTEIRO = "PROGRAMAS/REGGAE-SLICER/KX-BRIDGE.md"
 CONSULTAS_DIAGNOSTICO = ("/server/info", "/printer/info", "/printer/objects/list",
                          "/printer/objects/query?objects=" + OBJETOS, "/kx/filament/slots", "/server/files/list")
 CHAVE_SENSIVEL = re.compile(r"pass|senha|token|secret|key|user|serial|(^|_)sn$|device|mac|cert|auth|(^|_)ip$|host|addr|cn$",
@@ -391,8 +393,11 @@ class KXBridge:
     def primeiro_dia(self):
         """{"passos": {id: "ok"|"falhou"}, "concluido": bool, "quando": {id: "AAAA-MM-DD HH:MM"}} guardado em config.json."""
         d = (self.config["primeiro_dia"] if self.config is not None else None) or {}
+        # pasta do autor (com o teste F0 e o KX-BRIDGE.md): roteiro do primeiro dia; outras pastas: roteiro geral
         return {"passos": dict(d.get("passos") or {}), "concluido": bool(d.get("concluido")),
-                "quando": dict(d.get("quando") or {})}
+                "quando": dict(d.get("quando") or {}),
+                "tem_f0": os.path.isfile(self.repo.caminho(ARQUIVO_F0)),
+                "tem_roteiro": os.path.isfile(self.repo.caminho(ARQUIVO_ROTEIRO))}
 
     def marcar_primeiro_dia(self, passo, valor):
         if self.config is None:

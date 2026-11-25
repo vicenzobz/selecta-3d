@@ -578,7 +578,8 @@ class Repositorio:
                     doc.tabela("Materiais")
                 except md.TabelaNaoEncontrada:
                     texto = doc.texto()
-                    md.escrever_arquivo(p, texto.rstrip("\n") + "\n" + SECAO_MATERIAIS,
+                    nl = "\r\n" if "\r\n" in texto else "\n"  # arquivo salvo com CRLF (Bloco de Notas): não misturar
+                    md.escrever_arquivo(p, texto.rstrip("\r\n") + nl + SECAO_MATERIAIS.replace("\n", nl),
                                         pasta_backup=self.pasta_backup)
                     feito.append("seção Materiais em projetos.md")
             if os.path.exists(self.caminho(ARQ_ESTOQUE)):

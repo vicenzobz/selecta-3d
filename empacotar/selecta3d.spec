@@ -7,6 +7,7 @@ PASTA = os.path.dirname(SPECPATH)  # PROGRAMAS/SELECTA-3D
 dados = [
     (os.path.join(PASTA, "ui"), "ui"),
     (os.path.join(PASTA, "icone"), "icone"),
+    (os.path.join(PASTA, "perfis-kobra-x"), "perfis-kobra-x"),
     (os.path.join(PASTA, "deteccao", "LEIA-ME.md"), "deteccao"),
     (os.path.join(PASTA, "deteccao", "deteccao.py"), "deteccao"),
     (os.path.join(PASTA, "deteccao", "instalar_deteccao.ps1"), "deteccao"),

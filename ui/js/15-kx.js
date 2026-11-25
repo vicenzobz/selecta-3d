@@ -418,6 +418,21 @@ const PASSOS_1DIA = [
   { id: 'pausar', titulo: 'Pausar e continuar', texto: 'Com o Benchy imprimindo, "Pausar" no cartão; a cabeça para e se afasta. Depois "Continuar".' },
   { id: 'fim', titulo: 'Fim e registro', texto: 'Quando terminar, o Selecta 3D avisa e abre o registro com o tempo real. Confira os gramas e registre. Medir o Benchy (60,00 × 31,00 mm).' },
 ];
+// Roteiro geral (princ-v08), para pastas que não são a do autor (sem o F0 e o KX-BRIDGE.md): como ligar a Kobra X ao
+// Selecta 3D. Usa os mesmos ids dos passos, então o que já foi marcado continua valendo.
+const KX_BRIDGE_URL = 'https://gitea.it-drui.de/viewit/KX-Bridge-Release';
+const PASSOS_CONECTAR = [
+  { id: 'instalar', titulo: 'Instalar o KX-Bridge e preparar a impressora', texto: 'O Selecta 3D conversa com a Kobra X pela rede de casa através do KX-Bridge, um programa da comunidade (GPL-3.0, sem ligação com a Anycubic). Instale-o em %LOCALAPPDATA%\KX-Bridge (o kx-bridge.exe fica direto nessa pasta). Reserve um IP fixo para a impressora no roteador e ligue o modo LAN no painel dela; com o modo LAN ligado, o app da Anycubic no celular e o envio pelo Anycubic Slicer Next param. No KX-Bridge, cadastre a impressora (a ponte responde em http://127.0.0.1:7125).',
+    auto: (st) => st.instalada,
+    botao: () => `<button class="botao pequeno" data-acao="ref-link" data-url="${KX_BRIDGE_URL}">${ICONE.abrir}Página do KX-Bridge</button>` },
+  { id: 'online', titulo: 'Ponte online no Selecta 3D', texto: 'No cartão Kobra X, "Ligar a ponte". O cartão deve sair de "desligada".', auto: (st) => st.online },
+  { id: 'status', titulo: 'Status e temperaturas', texto: 'O cartão mostra "Parada" e as temperaturas do bico e da mesa parecidas com as da tela da impressora.', auto: (st) => st.online && !!(st.impressora || {}).estado },
+  { id: 'slots', titulo: 'Slots do ACE', texto: 'As cores do ACE aparecem no cartão. Se não aparecerem, a versão do KX-Bridge não informa os slots: dá para seguir, conferindo as cores na impressora. O botão "Salvar o diagnóstico da ponte" mostra o que ela responde.', auto: (st) => (st.slots || []).length > 0 },
+  { id: 'foto', titulo: 'Foto da câmera', texto: 'A foto do cartão atualiza a cada 5 s e mostra a mesa.' },
+  { id: 'benchy', titulo: 'Primeira impressão pela rede', texto: 'Escolha uma peça pequena e já fatiada na Fila e use "Imprimir na Kobra X"; a janela de envio confere a cor de cada slot. O cartão fica em "Enviado" enquanto a impressora aquece e nivela, e depois passa para "Imprimindo".' },
+  { id: 'pausar', titulo: 'Pausar e continuar', texto: 'Com a peça imprimindo, "Pausar" no cartão; a cabeça para e se afasta. Depois "Continuar".' },
+  { id: 'fim', titulo: 'Fim e registro', texto: 'Quando terminar, o Selecta 3D avisa e abre o registro com o tempo real. Confira os gramas e registre: o estoque baixa sozinho.' },
+];
 const PLANO_B_1DIA = `<ol class="plano-b">
   <li>Abrir o arquivo no <b>Anycubic Slicer Next</b> (menu "…" da peça → "Abrir o fatiado no Anycubic Slicer Next", ou o modelo).</li>
   <li>Enviar para a Kobra X pelo próprio Anycubic Slicer Next (rede da Anycubic, com o modo LAN <b>desligado</b> na impressora) ou por pendrive.</li>
@@ -429,9 +444,11 @@ function htmlPrimeiroDia() {
   const st = IMP.estado || {};
   const pd = st.primeiro_dia || { passos: {}, quando: {} };
   if (pd.concluido) return '';
-  const feitos = PASSOS_1DIA.filter((p) => pd.passos[p.id] === 'ok').length;
-  const falhou = PASSOS_1DIA.find((p) => pd.passos[p.id] === 'falhou');
-  const linhasHtml = PASSOS_1DIA.map((p, i) => {
+  const doAutor = !!pd.tem_f0; // pasta do autor: roteiro do primeiro dia; as outras: como conectar a Kobra X
+  const PASSOS = doAutor ? PASSOS_1DIA : PASSOS_CONECTAR;
+  const feitos = PASSOS.filter((p) => pd.passos[p.id] === 'ok').length;
+  const falhou = PASSOS.find((p) => pd.passos[p.id] === 'falhou');
+  const linhasHtml = PASSOS.map((p, i) => {
     const v = pd.passos[p.id] || '';
     const parece = !v && p.auto && IMP.estado && p.auto(st);
     return `<div class="passo-1dia ${v}">
@@ -445,11 +462,11 @@ function htmlPrimeiroDia() {
       </div></div>`;
   }).join('');
   // D-b: recolhível (fica como o usuário deixou; some de vez ao concluir o roteiro)
-  return `<details class="recolhivel" data-recolher="1dia" ${pref.ler('aberto_1dia', true) ? 'open' : ''}><summary><h2 class="secao">Primeiro dia da Kobra X <small>${feitos} de ${PASSOS_1DIA.length} passos · roteiro também em PROGRAMAS/REGGAE-SLICER/KX-BRIDGE.md</small></h2></summary>
+  return `<details class="recolhivel" data-recolher="1dia" ${pref.ler('aberto_1dia', true) ? 'open' : ''}><summary><h2 class="secao">${doAutor ? 'Primeiro dia da Kobra X' : 'Conectar a Kobra X'} <small>${feitos} de ${PASSOS.length} passos${pd.tem_roteiro ? ' · roteiro também em PROGRAMAS/REGGAE-SLICER/KX-BRIDGE.md' : ' · opcional: o resto do Selecta 3D funciona sem a impressora na rede'}</small></h2></summary>
     <div class="lista-1dia">${linhasHtml}</div>
-    ${falhou ? `<div class="plano-b-caixa"><b>Plano B (decidido em 22/11):</b> o passo "${esc(falhou.titulo)}" falhou. Até resolver, imprima pelo Anycubic Slicer Next:${PLANO_B_1DIA}</div>` : ''}
-    <div class="kx-linha">${feitos === PASSOS_1DIA.length ? '<button class="botao pequeno primario" data-acao="1dia" data-passo="concluido" data-valor="1">Concluir o roteiro (o cartão some)</button>' : ''}
-      <button class="botao pequeno" data-acao="1dia-planob">Ver o plano B</button>
+    ${falhou && doAutor ? `<div class="plano-b-caixa"><b>Plano B${doAutor ? ' (decidido em 22/11)' : ''}:</b> o passo "${esc(falhou.titulo)}" falhou. Até resolver, imprima pelo Anycubic Slicer Next:${PLANO_B_1DIA}</div>` : ''}
+    <div class="kx-linha">${feitos === PASSOS.length ? '<button class="botao pequeno primario" data-acao="1dia" data-passo="concluido" data-valor="1">Concluir o roteiro (o cartão some)</button>' : ''}
+      ${doAutor ? '<button class="botao pequeno" data-acao="1dia-planob">Ver o plano B</button>' : ''}
       ${E.dados && !E.dados.remoto && st.online ? '<button class="botao pequeno" data-acao="kx-diagnostico">Salvar o diagnóstico da ponte</button>' : ''}</div></details>`;
 }
 

@@ -73,6 +73,7 @@ class PonteReggae:
     def __init__(self, repo, pasta_app, pasta_reggae, intervalo=10):
         self.repo = repo
         self.pasta_app = pasta_app
+        self.pasta_reggae = pasta_reggae
         self.pasta_filamentos = os.path.join(pasta_reggae, "dados-orca", "user", "default", "filament")
         self.intervalo = intervalo
         self._versao = None
@@ -215,7 +216,21 @@ class PonteReggae:
         except (OSError, ValueError):
             return {}
 
+    def preparar_dados_orca(self):
+        """Reggae Slicer instalado em PROGRAMAS/REGGAE-SLICER/reggae-slicer e sem a pasta dados-orca ao lado: cria a
+        pasta vazia. O Reggae Slicer só usa a pasta compartilhada se ela existir quando ele abre; sem ela, guardaria
+        as configurações no AppData e não veria os filamentos do estoque. Devolve True se criou."""
+        programa = os.path.join(self.pasta_reggae, "reggae-slicer")
+        dados = os.path.join(self.pasta_reggae, "dados-orca")
+        if os.path.isdir(dados) or not any(os.path.isfile(os.path.join(programa, e))
+                                           for e in ("reggae-slicer.exe", "orca-slicer.exe")):
+            return False
+        os.makedirs(dados, exist_ok=True)
+        log.info("pasta dados-orca criada para o Reggae Slicer: %s", dados)
+        return True
+
     def gravar_filamentos(self):
+        self.preparar_dados_orca()
         if not os.path.isdir(os.path.dirname(os.path.dirname(self.pasta_filamentos))):
             return {"gravados": [], "mantidos": [], "apagados": []}  # o Reggae Slicer ainda não foi aberto
         os.makedirs(self.pasta_filamentos, exist_ok=True)
@@ -254,8 +269,12 @@ class PonteReggae:
     def _laco(self):
         while not self._parar.is_set():
             try:
-                v = self.repo.versao()
-                if v != self._versao:
+                # roda quando os .md mudam e também quando o Reggae Slicer aparece ou é aberto pela primeira vez
+                # (cria dados-orca; dados-orca/user surge na primeira abertura), para os filamentos irem sem esperar
+                criou = self.preparar_dados_orca()
+                pronto = os.path.isdir(os.path.dirname(os.path.dirname(self.pasta_filamentos)))
+                v = (self.repo.versao(), pronto)
+                if criou or v != self._versao:
                     self.atualizar()
                     self._versao = v
             except Exception:  # noqa: BLE001  (a ponte nunca derruba o Selecta 3D)

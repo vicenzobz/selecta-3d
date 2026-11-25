@@ -188,6 +188,12 @@ document.addEventListener('click', async (ev) => {
     case 'clip-dispensar':
       pref.gravar('clipDispensado', true);
       return render();
+    case 'fat-procurar':
+      FAT.estado = null; await carregarFatiador(); render();
+      return aviso(FAT.estado && FAT.estado.disponivel ? 'Achei o fatiador.' : 'Ainda não achei o reggae-slicer.exe nessa pasta.', !(FAT.estado && FAT.estado.disponivel));
+    case 'fat-copiar':
+      try { await navigator.clipboard.writeText(d.texto || ''); aviso('Caminho copiado.'); } catch { aviso('Não consegui copiar; selecione o caminho e copie à mão.', true); }
+      return;
     case 'ref-link':
       if (E.dados.remoto) return window.open(d.url, '_blank', 'noopener');
       return api('/api/link', { url: d.url }).catch((e) => aviso(e.message, true));

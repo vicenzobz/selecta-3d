@@ -144,9 +144,9 @@ def main():
                                 "localStorage.setItem('org3d.semImagemAoAbrir','false');")
             pag.goto(url)
             pag.wait_for_timeout(2500)
-            for tela in ("painel", "fila", "estoque", "projetos", "arquivos"):
+            for tela in ("painel", "fila", "estoque", "projetos", "arquivos", "fatiador"):
                 pag.evaluate(f"irPara('{tela}')")
-                pag.wait_for_timeout(2500 if tela == "arquivos" else 1200)
+                pag.wait_for_timeout(2500 if tela in ("arquivos", "fatiador") else 1200)
                 # o caminho da pasta temporária (com o nome do usuário do Windows) vira o caminho padrão
                 pag.evaluate("""([r, novo]) => { const w = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
                     while (w.nextNode()) if (w.currentNode.nodeValue.includes(r))

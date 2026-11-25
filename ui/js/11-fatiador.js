@@ -15,9 +15,39 @@ async function carregarFatiador() {
   if (FAT.estado) { const n = nomeFatiador(); if (n !== pref.ler('nome_fatiador', '')) { pref.gravar('nome_fatiador', n); if (E.dados) renderMenu(); } }
 }
 const ehFatiavel = (c) => /\.(stl|3mf|obj|step|stp|amf)$/i.test(c || '');
-// nome do programa que abre na janela: o Reggae Slicer quando instalado; antes disso, o OrcaSlicer oficial
-// A15: um nome só em toda a interface — o do programa que o botão realmente abre (guardado para não piscar ao abrir)
-const nomeFatiador = () => (FAT.estado ? (FAT.estado.reggae ? 'Reggae Slicer' : 'OrcaSlicer') : pref.ler('nome_fatiador', 'Reggae Slicer'));
+// A15: um nome só em toda a interface. Desde princ-v08 (pedido do usuário) é sempre "Reggae Slicer", mesmo quando o que
+// está instalado é o OrcaSlicer oficial (o Reggae Slicer é um fork dele e os dois funcionam do mesmo jeito)
+const nomeFatiador = () => 'Reggae Slicer';
+const GITHUB_REGGAE = 'https://github.com/vicenzobz/reggae-slicer';
+const RELEASES_ORCA = 'https://github.com/OrcaSlicer/OrcaSlicer/releases/tag/v2.5.2';
+
+// sem fatiador na pasta: como ligar o Reggae Slicer (ou o OrcaSlicer) ao Selecta 3D
+function telaIntegrarReggae() {
+  const sep = (E.dados.raiz || '').includes('/') ? '/' : String.fromCharCode(92); // barra invertida do Windows
+  const base = `${E.dados.raiz || ''}${sep}PROGRAMAS${sep}REGGAE-SLICER`;
+  const pReggae = `${base}${sep}reggae-slicer`, pOrca = `${base}${sep}orca-oficial`;
+  const caminho = (c) => `<span class="fat-caminho"><code>${esc(c)}</code><button class="botao pequeno" data-acao="fat-copiar" data-texto="${esc(c)}">Copiar</button></span>`;
+  return `${cabecalho('Reggae Slicer', 'O fatiador do Selecta 3D. Ainda não está ligado a esta pasta.')}
+    <section class="cartao fat-integrar">
+      <h2 class="secao">Ligar o Reggae Slicer <small>uma vez só · leva uns 5 minutos</small></h2>
+      <p>Com ele na pasta, o Selecta 3D fatia as peças da fila e guarda a estimativa (gramas por cor, tempo e custo), abre os modelos direto nele, e o Reggae Slicer mostra na página inicial a fila, os projetos e os filamentos do seu estoque.</p>
+      <div class="kx-linha"><button class="botao primario" data-acao="ref-link" data-url="${GITHUB_REGGAE}">${ICONE.abrir}Abrir o Reggae Slicer no GitHub</button>
+        <span class="dica">${esc(GITHUB_REGGAE.replace('https://', ''))}</span></div>
+      <ol class="fat-passos">
+        <li>No GitHub, abra a aba <b>Actions</b> e a última execução verde de <b>Reggae Slicer - Windows</b>. Em <b>Artifacts</b>, baixe <code>ReggaeSlicer_…_Windows_x64_portable</code> (precisa estar logado no GitHub).</li>
+        <li>Extraia o zip nesta pasta, de modo que o <code>reggae-slicer.exe</code> fique direto dentro dela:${caminho(pReggae)}</li>
+        <li>Volte aqui e clique em <b>Procurar de novo</b>. Os perfis da Kobra X já vêm com o Selecta 3D.</li>
+        <li>Abra o Reggae Slicer uma vez pelo botão <b>Abrir o Reggae Slicer</b> desta aba e escolha a Kobra X. As configurações dele ficam na pasta <code>dados-orca</code>, ao lado, e os filamentos do seu estoque passam a aparecer nele em alguns segundos.</li>
+      </ol>
+      <div class="kx-linha"><button class="botao" data-acao="fat-procurar">${ICONE.recarregar}Procurar de novo</button></div>
+    </section>
+    <section class="cartao fat-orca-nota">
+      <h2 class="secao">Funciona com o OrcaSlicer também</h2>
+      <p>O Reggae Slicer é um <b>fork do OrcaSlicer 2.5.2</b>: muda o visual e a ligação com o Selecta 3D, mas fatia igual e abre os mesmos arquivos. Se preferir o OrcaSlicer oficial, baixe a versão <b>portátil</b> (Windows, <code>…_portable.zip</code>) e extraia em:${caminho(pOrca)}</p>
+      <div class="kx-linha"><button class="botao" data-acao="ref-link" data-url="${RELEASES_ORCA}">${ICONE.abrir}OrcaSlicer 2.5.2 no GitHub</button></div>
+      <p class="dica">A aba continua se chamando Reggae Slicer. Projeto pessoal, sem suporte: para adaptar a outra impressora, use um agente de IA como o Claude Code ou o Codex.</p>
+    </section>`;
+}
 const nomeArquivo = (c) => String(c || '').split('/').pop();
 
 // cor de cada filamento para a estimativa: as cores da peça na fila (na ordem) ou o rolo de cor mais parecida
@@ -67,6 +97,7 @@ function telaFatiador() {
   if (!st && !FAT.carregando) { FAT.carregando = true; carregarFatiador().then(() => { FAT.carregando = false; render(); }); }
   if (!E.arquivos && !FAT.carregandoArq) { FAT.carregandoArq = true; carregarArquivos().then(() => { FAT.carregandoArq = false; render(); }); }
   if (!st || !E.arquivos) return `${cabecalho(nomeFatiador(), 'Carregando…')}`;
+  if (!st.disponivel) return telaIntegrarReggae();
   const f = FAT.form;
   const modelos = E.arquivos.filter((a) => ehFatiavel(a.caminho));
   if (f.caminho && !modelos.some((a) => a.caminho === f.caminho)) f.caminho = '';

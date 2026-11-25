@@ -14,6 +14,7 @@ import logging
 import os
 import re
 import shlex
+import sys
 import shutil
 import subprocess
 import tempfile
@@ -57,6 +58,9 @@ def _norm(t):
 PROGRAMAS_ABRIR = ("anycubic", "reggae")  # botões "Abrir no …" do Painel e da Fila
 
 
+# perfis completos da Kobra X que vêm com o programa (cópia de PROGRAMAS/REGGAE-SLICER/perfis; no .exe, dentro do pacote)
+PERFIS_EMBUTIDOS = os.path.join(getattr(sys, "_MEIPASS", "") or os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                                "perfis-kobra-x")
 EXECUTAVEIS = ("reggae-slicer.exe", "orca-slicer.exe")  # o nome novo primeiro
 
 
@@ -66,6 +70,11 @@ class Fatiador:
         self.config = config  # guarda o fatiador padrão dos botões Abrir (fatiador_abrir)
         self.pasta = os.path.realpath(pasta)
         self.perfis = os.path.join(self.pasta, "perfis")
+        if not os.path.isfile(os.path.join(self.perfis, "indice.json")):
+            # pasta sem PROGRAMAS/REGGAE-SLICER/perfis (cópia compartilhada, .exe): usa os perfis que vêm com o programa
+            embutidos = PERFIS_EMBUTIDOS
+            if os.path.isfile(os.path.join(embutidos, "indice.json")):
+                self.perfis = embutidos
         self.saidas = os.path.join(self.pasta, "saidas")
         self.dados_orca = os.path.join(self.pasta, "dados-orca")
         # para testes fora do Windows: ORGANIZADOR_ORCA="xvfb-run -a /caminho/orca"

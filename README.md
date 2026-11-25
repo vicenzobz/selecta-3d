@@ -23,7 +23,11 @@ Programa para Windows que organiza a impressão 3D de quem tem uma **Anycubic Ko
 
 ![Arquivos](apresentacao/tela_arquivos.png)
 
-**Arquivos:** os modelos da pasta com prévia 3D, versão, peça da fila e licença. *(Capturas feitas com dados de demonstração por `apresentacao/gerar_capturas.py`.)*
+**Arquivos:** os modelos da pasta com prévia 3D, versão, peça da fila e licença.
+
+![Reggae Slicer](apresentacao/tela_fatiador.png)
+
+**Reggae Slicer:** sem fatiador na pasta, a aba mostra como ligar o Reggae Slicer (ou o OrcaSlicer). *(Capturas feitas com dados de demonstração por `apresentacao/gerar_capturas.py`.)*
 
 ## Instalar
 
@@ -58,11 +62,12 @@ Fila, estoque (com previsão de filamento por cor e pesagem na balança), compra
 
 ## Opcional
 
-- **Fatiador:** o programa procura o OrcaSlicer (ou o Reggae Slicer) instalado para fatiar e ler as estimativas.
+- **Fatiador ([Reggae Slicer](https://github.com/vicenzobz/reggae-slicer)):** fatia as peças da fila e guarda a estimativa (gramas por cor, tempo, custo), abre os modelos e mostra a fila e o estoque na página inicial dele. A aba **Reggae Slicer** explica como ligá-lo: baixar e extrair em `Documentos\Selecta 3D\PROGRAMAS\REGGAE-SLICEReggae-slicer`. O Reggae Slicer é um fork do OrcaSlicer 2.5.2, e o OrcaSlicer oficial portátil também funciona (em `…\REGGAE-SLICER\orca-oficial`). Os perfis da Kobra X já vêm com o Selecta 3D.
 - **Imprimir pela rede e acompanhar a impressão:** precisa do [KX-Bridge](https://gitea.it-drui.de/viewit/KX-Bridge-Release) instalado (projeto da comunidade, GPL-3.0). Sem ele, o cartão da Kobra X fica sem conexão e o resto funciona.
 - **Celular:** botão Celular no menu (mesma rede Wi-Fi; fora de casa, com Tailscale).
 - **Extensão do navegador** (pasta `extensao` do zip): salva a página aberta como referência, projeto ou compra. Instruções em `extensao/LEIA-ME.md`.
-- **Avisos pelo Telegram** e **detecção de falhas pela câmera** (precisa de Docker): configuráveis dentro do programa.
+- **Avisos pelo Telegram:** configuráveis dentro do programa.
+- **Detecção de falhas pela câmera:** experimental, precisa de Docker e de rodar `deteccao/instalar_deteccao.ps1` da versão em código.
 
 ## Para quem quer rodar pelo código
 
@@ -76,4 +81,4 @@ MIT (arquivo `LICENSE`).
 
 ## Licenças de terceiros
 
-three.js (MIT), QR Code Generator de Kazuhiko Arase (MIT) e fontes Archivo, Archivo Narrow, Barlow Condensed, Bowlby One, Inter e JetBrains Mono (SIL Open Font License), em `ui/vendor/`.
+Perfis da Kobra X em `perfis-kobra-x/`: perfis oficiais do OrcaSlicer 2.5.2 (AGPL-3.0), com a herança resolvida. three.js (MIT), QR Code Generator de Kazuhiko Arase (MIT) e fontes Archivo, Archivo Narrow, Barlow Condensed, Bowlby One, Inter e JetBrains Mono (SIL Open Font License), em `ui/vendor/`.

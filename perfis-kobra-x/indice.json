@@ -1,0 +1,122 @@
+[
+  {
+    "tipo": "maquina",
+    "arquivo": "maquina/kobra_x_04.json",
+    "perfil_orca": "Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "processo",
+    "arquivo": "processo/008_standard.json",
+    "perfil_orca": "0.08mm Standard @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "processo",
+    "arquivo": "processo/012_high_quality.json",
+    "perfil_orca": "0.12mm High Quality @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "processo",
+    "arquivo": "processo/012_standard.json",
+    "perfil_orca": "0.12mm Standard @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "processo",
+    "arquivo": "processo/016_high_quality.json",
+    "perfil_orca": "0.16mm High Quality @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "processo",
+    "arquivo": "processo/016_standard.json",
+    "perfil_orca": "0.16mm Standard @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "processo",
+    "arquivo": "processo/020_high_quality.json",
+    "perfil_orca": "0.20mm High Quality @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "processo",
+    "arquivo": "processo/020_standard.json",
+    "perfil_orca": "0.20mm Standard @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "processo",
+    "arquivo": "processo/024_standard.json",
+    "perfil_orca": "0.24mm Standard @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "processo",
+    "arquivo": "processo/028_standard.json",
+    "perfil_orca": "0.28mm Standard @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/anycubic_abs.json",
+    "perfil_orca": "Anycubic ABS @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/anycubic_asa.json",
+    "perfil_orca": "Anycubic ASA @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/anycubic_petg.json",
+    "perfil_orca": "Anycubic PETG @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/anycubic_pla.json",
+    "perfil_orca": "Anycubic PLA @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/anycubic_pla_glow.json",
+    "perfil_orca": "Anycubic PLA Glow @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/anycubic_pla_high_speed.json",
+    "perfil_orca": "Anycubic PLA High Speed @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/anycubic_pla_matte.json",
+    "perfil_orca": "Anycubic PLA Matte @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/anycubic_pla_silk.json",
+    "perfil_orca": "Anycubic PLA Silk @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/anycubic_pla_plus.json",
+    "perfil_orca": "Anycubic PLA+ @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/anycubic_pva.json",
+    "perfil_orca": "Anycubic PVA @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/anycubic_tpu_95a.json",
+    "perfil_orca": "Anycubic TPU 95A @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/anycubic_tpu_for_ace.json",
+    "perfil_orca": "Anycubic TPU for ACE @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/generic_petg.json",
+    "perfil_orca": "Generic PETG @Anycubic Kobra X 0.4 nozzle"
+  },
+  {
+    "tipo": "filamento",
+    "arquivo": "filamento/print_pulse_pla.json",
+    "perfil_orca": "PLA Print Pulse @Anycubic Kobra X 0.4 nozzle"
+  }
+]
