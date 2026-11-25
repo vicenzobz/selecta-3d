@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Selecta 3D</title>
+  <meta name="theme-color" content="#15110c">
+  <meta name="referrer" content="no-referrer">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Selecta 3D">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <link rel="icon" href="icone.svg" type="image/svg+xml">
+  <link rel="icon" href="favicon-32.png" sizes="32x32" type="image/png">
+  <link rel="apple-touch-icon" href="icone-toque-180.png">
+  <script>
+    // manifesto do app instalável: leva o código de acesso para o ícone abrir já conectado
+    (function () {
+      var t = new URLSearchParams(location.search).get('t');
+      try { if (t) localStorage.setItem('org3d.token', t); else t = localStorage.getItem('org3d.token'); } catch (e) { /* sem armazenamento */ }
+      var l = document.createElement('link');
+      l.rel = 'manifest';
+      l.href = 'manifest.webmanifest' + (t ? '?t=' + encodeURIComponent(t) : '');
+      document.head.appendChild(l);
+    })();
+  </script>
+  <link rel="stylesheet" href="estilo.css">
+  <script src="vendor/qrcode/qrcode.js"></script>
+  <script type="importmap">
+    {"imports": {"three": "./vendor/three/build/three.module.js",
+                 "three/addons/": "./vendor/three/examples/jsm/"}}
+  </script>
+  <!-- interface dividida por tela (A17, fila-v27): scripts comuns, nesta ordem, no mesmo escopo; o antigo app.js não é mais carregado -->
+  <script defer src="js/01-base.js"></script>
+  <script defer src="js/02-render.js"></script>
+  <script defer src="js/03-painel.js"></script>
+  <script defer src="js/04-fila.js"></script>
+  <script defer src="js/05-impressoes.js"></script>
+  <script defer src="js/06-estoque.js"></script>
+  <script defer src="js/07-compras.js"></script>
+  <script defer src="js/08-projetos.js"></script>
+  <script defer src="js/09-referencias.js"></script>
+  <script defer src="js/10-arquivos.js"></script>
+  <script defer src="js/11-fatiador.js"></script>
+  <script defer src="js/12-formularios.js"></script>
+  <script defer src="js/13-dialogos.js"></script>
+  <script defer src="js/14-pesquisa.js"></script>
+  <script defer src="js/15-kx.js"></script>
+  <script defer src="js/16-abrir-fatiador.js"></script>
+  <script defer src="js/17-baixar.js"></script>
+  <script defer src="js/18-cores.js"></script>
+  <script defer src="js/19-miniaturas.js"></script>
+  <script defer src="js/20-modal.js"></script>
+  <script defer src="js/21-eventos.js"></script>
+  <script defer src="js/22-inicio.js"></script>
+</head>
+<body>
+  <div class="app">
+    <aside class="lateral">
+      <div class="marca">
+        <img class="marca-sinal" src="icone.svg" alt="" aria-hidden="true">
+        <span class="marca-nome">Selecta<br>3D</span>
+      </div>
+      <nav class="menu" id="menu"></nav>
+      <div class="lateral-rodape">
+        <button class="botao-celular" data-acao="celular" title="Acesso pelo celular">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="7" y="2" width="10" height="20" rx="2.5"/><path d="M11 18h2"/></svg>
+          <span>Celular</span>
+        </button>
+        <div class="maquina">Kobra X · 260 × 260 × 260</div>
+        <div class="sinc" id="sinc"><span class="sinc-ponto"></span><span id="sinc-texto">conectando…</span></div>
+      </div>
+    </aside>
+    <main class="conteudo" id="conteudo"></main>
+  </div>
+  <div class="fundo-modal" id="fundo-modal" hidden>
+    <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
+  </div>
+  <div class="avisos" id="avisos" aria-live="polite"></div>
+</body>
+</html>

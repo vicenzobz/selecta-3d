@@ -1,0 +1,35 @@
+# A cada etiqueta de versão (v1.0.0, v1.1.0…): empacota o Selecta 3D no Windows e publica o zip em Releases.
+name: Empacotar
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Dependências
+        run: python -m pip install pyinstaller pywebview pystray pillow
+      - name: Empacotar
+        shell: pwsh
+        run: ./empacotar/empacotar.ps1
+      - name: Guardar o zip
+        uses: actions/upload-artifact@v4
+        with:
+          name: Selecta3D
+          path: empacotar/saida/Selecta3D.zip
+      - name: Publicar em Releases
+        if: startsWith(github.ref, 'refs/tags/')
+        uses: softprops/action-gh-release@v2
+        with:
+          files: empacotar/saida/Selecta3D.zip
+          generate_release_notes: true

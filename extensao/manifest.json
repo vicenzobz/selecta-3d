@@ -1,0 +1,31 @@
+{
+  "manifest_version": 3,
+  "name": "Selecta 3D",
+  "version": "1.3.0",
+  "description": "Salva a página aberta no Selecta 3D (referência, projeto novo ou compra) e guarda modelos baixados no projeto, com a licença.",
+  "icons": {
+    "16": "icones/icone-16.png",
+    "32": "icones/icone-32.png",
+    "48": "icones/icone-48.png",
+    "128": "icones/icone-128.png"
+  },
+  "action": {
+    "default_title": "Salvar no Selecta 3D (Alt+Shift+S)",
+    "default_popup": "popup.html",
+    "default_icon": {
+      "16": "icones/icone-16.png",
+      "32": "icones/icone-32.png",
+      "48": "icones/icone-48.png"
+    }
+  },
+  "permissions": ["activeTab", "scripting", "storage", "contextMenus", "downloads"],
+  "host_permissions": ["http://127.0.0.1/*", "http://localhost/*"],
+  "optional_host_permissions": ["*://*/*"],
+  "background": { "service_worker": "fundo.js" },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": { "default": "Alt+Shift+S" },
+      "description": "Salvar esta página no Selecta 3D"
+    }
+  }
+}

@@ -1,0 +1,78 @@
+@font-face {
+  font-family: "Barlow Condensed";
+  font-weight: 900;
+  src: url("fontes/barlow-condensed-latin-900-normal.woff2") format("woff2");
+}
+:root {
+  /* as cores do Selecta 3D (princ-v02): madeira, papel, ouro e musgo */
+  --fundo: #15110c; --painel: #1e1811; --floresta: #2c4718; --lima: #f0b41c; --tinta-acento: #1a140c;
+  --menta: #f2e6c9; --texto-2: #b3a78a; --texto-3: #8b806a; --linha: rgba(239, 228, 200, .12);
+  --alerta: #ff9c3a; --alerta-fundo: rgba(255, 156, 58, .1); --erro: #ff6a55; --erro-fundo: rgba(255, 106, 85, .12);
+  --display: "Barlow Condensed", "Arial Narrow", sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--fundo); color: var(--menta); }
+body { width: 400px; font: 14px/1.45 "Segoe UI", system-ui, sans-serif; }
+body.janela { width: auto; }
+button, input, select, textarea { font: inherit; color: inherit; }
+
+.topo { display: flex; align-items: center; gap: 10px; padding: 12px 16px; border-bottom: 1px solid var(--linha); }
+.marca { font: 900 20px/1 var(--display); text-transform: uppercase; letter-spacing: .01em; flex: 1; }
+.engrenagem { width: 32px; height: 32px; border: 0; border-radius: 50%; background: transparent; color: var(--texto-3); cursor: pointer; display: grid; place-items: center; }
+.engrenagem:hover { background: var(--painel); color: var(--menta); }
+.engrenagem svg { width: 18px; height: 18px; }
+
+main { padding: 14px 16px 18px; }
+h1 { font: 900 24px/1 var(--display); text-transform: uppercase; margin: 4px 0 10px; }
+p { margin: 0 0 12px; color: var(--texto-2); }
+.carregando { color: var(--texto-3); }
+
+.origem { display: flex; gap: 12px; align-items: center; margin-bottom: 12px; }
+.origem .site { font-weight: 700; }
+.origem .url { color: var(--texto-3); font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+.abas { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; padding: 4px; border-radius: 999px; background: var(--painel); margin-bottom: 14px; }
+.abas button { height: 34px; border: 0; border-radius: 999px; background: transparent; color: var(--texto-2); font-weight: 600; cursor: pointer; }
+.abas button.ativo { background: var(--floresta); color: var(--lima); }
+
+label { display: block; font-size: 12px; font-weight: 600; color: var(--texto-2); margin-bottom: 10px; }
+input, select, textarea {
+  display: block; width: 100%; margin-top: 4px; padding: 8px 12px; border-radius: 12px;
+  border: 1px solid var(--linha); background: var(--painel); font-size: 14px;
+}
+textarea { min-height: 62px; resize: vertical; }
+input:focus, select:focus, textarea:focus { outline: 2px solid var(--lima); outline-offset: -1px; }
+.duas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.marcar { display: flex; gap: 8px; align-items: center; font-size: 13px; color: var(--menta); }
+.marcar input { width: auto; margin: 0; accent-color: var(--lima); }
+
+.chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+.chip { height: 28px; padding: 0 11px; border-radius: 999px; border: 1px solid var(--linha); background: transparent; color: var(--texto-2); font-size: 12.5px; font-weight: 600; cursor: pointer; }
+.chip:hover { border-color: var(--lima); color: var(--menta); }
+.chip.ativo { background: var(--lima); border-color: var(--lima); color: var(--tinta-acento); }
+
+.imagens { display: flex; gap: 8px; overflow-x: auto; padding: 4px 0 6px; margin-top: 4px; }
+.imagens button {
+  flex: none; width: 76px; height: 76px; border-radius: 12px; border: 2px solid transparent; padding: 0;
+  background: var(--painel) center/cover no-repeat; cursor: pointer; color: var(--texto-3); font-size: 11px; font-weight: 600;
+}
+.imagens button.ativo { border-color: var(--lima); box-shadow: 0 0 0 2px var(--fundo) inset; }
+
+.aviso { border-radius: 12px; padding: 9px 12px; margin-bottom: 12px; background: var(--alerta-fundo); color: var(--alerta); font-size: 12.5px; }
+.aviso.erro { background: var(--erro-fundo); color: var(--erro); }
+.aviso.ok { background: var(--floresta); color: var(--menta); }
+
+.acoes { display: flex; gap: 8px; justify-content: flex-end; margin-top: 14px; }
+.acoes button, .botao {
+  height: 40px; padding: 0 18px; border-radius: 999px; border: 1px solid var(--linha);
+  background: transparent; color: var(--menta); font-weight: 700; cursor: pointer;
+}
+.acoes button.primario { background: var(--lima); border-color: var(--lima); color: var(--tinta-acento); }
+.acoes button:disabled { opacity: .6; cursor: default; }
+.feito { text-align: center; padding: 14px 0 4px; }
+.feito .grande { font: 900 34px/1 var(--display); color: var(--lima); margin-bottom: 8px; }
+.dica { font-size: 11.5px; color: var(--texto-3); margin-top: 10px; }
+kbd { font: 600 11px "Segoe UI", sans-serif; padding: 1px 5px; border-radius: 4px; border: 1px solid var(--linha); }
+.chip.relacionada { border-color: var(--lima); color: var(--menta); }
+.dica-tags { font-weight: 400; font-size: 11px; color: var(--texto-3); margin-top: 6px; }
